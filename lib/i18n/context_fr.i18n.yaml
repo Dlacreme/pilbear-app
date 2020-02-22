@@ -1,0 +1,8 @@
+
+buttons:
+  ok: "Valider"
+  cancel: "Annuler"
+session:
+  register: "Creer un compte"
+  login: "Se connecter"
+  hello(String name): "Bienvenue $name"
