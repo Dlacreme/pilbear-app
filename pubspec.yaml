@@ -29,6 +29,7 @@ dependencies:
   pull_to_refresh: ^1.5.7
   loading: ^1.0.2
   sentry: '>=3.0.0 <4.0.0'
+  get_it: 4.0.0
 
 dev_dependencies:
   flutter_test:

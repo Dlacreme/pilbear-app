@@ -1,7 +1,6 @@
 
-import 'package:pilbear_app/services/api.dart';
 
-class AuthService extends PilbearApi {
+class AuthService {
 
   bool get isLogged {
     return false;

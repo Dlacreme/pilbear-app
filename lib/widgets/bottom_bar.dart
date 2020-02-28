@@ -1,16 +1,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pilbear_app/intl.dart';
-import 'package:pilbear_app/router.dart';
+import 'package:pilbear_app/main.dart';
+import 'package:pilbear_app/services/navigation.service.dart';
+import '../intl.dart';
+import '../router.dart';
 
 class BottomBar extends StatefulWidget {
+
+  final navigatorKey;
+
+  BottomBar(this.navigatorKey);
+
   @override
-  State<StatefulWidget> createState() => _BottomBarState();
+  State<StatefulWidget> createState() => _BottomBarState(this.navigatorKey);
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
+
+  int _selectedIndex = 1;
+  final navigatorKey;
+
+  _BottomBarState(this.navigatorKey);
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -18,10 +30,12 @@ class _BottomBarState extends State<BottomBar> {
     });
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, eventsPage);
+        // navigatorKey.currentState.pushNamed(context, eventsPage);
+        getIt<NavigationService>().navigateTo(eventsPage);
         break;
       case 1:
-        Navigator.pushNamed(context, searchPage);
+        getIt<NavigationService>().navigateTo(searchPage);
+        // navigatorKey.currentState.pushNamed(context, searchPage);
         break;
       case 2:
         break;

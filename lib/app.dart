@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:pilbear_app/intl.dart';
-import 'package:pilbear_app/pages/search.page.dart';
-import 'package:pilbear_app/router.dart';
-import 'package:pilbear_app/theme.dart';
-import 'package:pilbear_app/widgets/bottomBar.dart';
+import 'package:pilbear_app/main.dart';
+import 'package:pilbear_app/services/navigation.service.dart';
+import 'intl.dart';
+import 'router.dart';
+import 'theme.dart';
+import 'widgets/bottom_bar.dart';
 import 'package:sentry/sentry.dart';
 
 class MyApp extends StatefulWidget {
@@ -14,6 +15,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,13 +34,18 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: pilbearThemeData,
+      navigatorKey: getIt<NavigationService>().navigationKey,
+      // navigatorKey: this.navigatorKey,
       onGenerateRoute: Router.generateRoute,
       initialRoute: searchPage,
       builder: (context, widget) {
         return Scaffold(
           extendBody: true,
-          body: SearchPage(SearchModeEnum.Map),
-          bottomNavigationBar: BottomBar(),
+          body: Container(
+            child: widget,
+            padding: EdgeInsets.only(top: isAndroid ? 30 : 10),
+          ),
+          bottomNavigationBar: BottomBar(this.navigatorKey),
         );
       },
     );

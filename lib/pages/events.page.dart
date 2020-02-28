@@ -9,6 +9,6 @@ class EventsPage extends StatefulWidget {
 class _EventsPage extends State<EventsPage> {
   @override
   Widget build(BuildContext context) {
-    return Text('I am the search page');
+    return Text('I am the events page');
   }
 }

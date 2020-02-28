@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:pilbear_app/pages/events.page.dart';
-import 'package:pilbear_app/pages/search.page.dart';
+import 'pages/events.page.dart';
+import 'pages/search.page.dart';
 
-const String searchPage = '/search';
+const String searchPage = '/';
 const String eventsPage = '/events';
 
 class Router {
@@ -20,9 +20,8 @@ class Router {
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-                body: Center(
-                    child: Text('No route defined for ${settings.name}')),
-              ));
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ));
     }
   }
 }

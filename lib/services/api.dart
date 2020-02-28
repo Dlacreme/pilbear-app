@@ -1,5 +1,4 @@
-import 'package:http/http.dart' as http;
 
-abstract class PilbearApi {
+class PilbearApi {
 
 }
