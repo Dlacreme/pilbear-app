@@ -1,8 +1,0 @@
-
-buttons:
-  ok: "Submit"
-  cancel: "Cancel"
-session:
-  register: "Create an account"
-  login: "Log in"
-  hello(String name): "Welcome $name"
