@@ -1,7 +1,8 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:pilbear_app/app.widget.dart';
 
-class LoadingScreen extends StatefulWidget {
+class LoadingScreen extends ScreenWidget {
   @override
   _LoadingScreen createState() => _LoadingScreen();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pilbear_app/app.widget.dart';
 import 'package:pilbear_app/main.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'intl.dart';
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
             child: widget,
             padding: EdgeInsets.only(top: isAndroid ? 30 : 10),
           ),
-          bottomNavigationBar: BottomBar(this.navigatorKey),
+          bottomNavigationBar: (widget as AppWidget).showBottomBar == true ? BottomBar(this.navigatorKey) : Text('ho'),
         );
       },
     );

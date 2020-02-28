@@ -1,12 +1,13 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:pilbear_app/app.widget.dart';
 
 enum SearchModeEnum {
   Map,
   List,
 }
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends PageWidget {
   final SearchModeEnum mode;
 
   SearchPage(this.mode);
