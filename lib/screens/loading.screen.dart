@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pilbear_app/main.dart';
-import 'package:pilbear_app/router.dart';
-import 'package:pilbear_app/services/navigation.service.dart';
+import 'package:pilbear_app/services/api.dart';
+import 'package:pilbear_app/services/storage.service.dart';
+import 'package:pilbear_app/theme.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -11,11 +13,39 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreen extends State<LoadingScreen> {
+
+  void initState() {
+    super.initState();
+    this.prepareApiAndFetchUser();
+  }
+
+  void prepareApiAndFetchUser() async {
+    var token = await getIt<StorageService>().getToken();
+    getIt.registerLazySingleton(() => PilbearApi(token));
+    await getIt<PilbearApi>().me();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      child: Text('GO TO SEARCH PAGE'),
-      onPressed: () => getIt<NavigationService>().navigateTo(searchPage),
+    return Center(
+      child: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 50),
+                child: Image(image: AssetImage('assets/pilbear-logo-full.png')),
+              ),
+              SpinKitWave(
+                color: PilbearColors.primaryColor,
+                size: 30,
+              )
+            ]
+          ),
+        )
+      ),
     );
   }
 }

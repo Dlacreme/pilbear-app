@@ -13,10 +13,10 @@ import 'package:pilbear_app/services/ui.service.dart';
 GetIt getIt = GetIt.instance;
 
 void main() {
+  // Notes: we also register PilbearApi() in `loading.screen.dart`
   getIt.registerFactory(() => UserModel());
   getIt.registerFactory(() => EventModel());
   getIt.registerLazySingleton(() => NavigationService());
-  getIt.registerLazySingleton(() => PilbearApi());
   getIt.registerLazySingleton(() => AuthService());
   getIt.registerLazySingleton(() => StorageService());
   getIt.registerLazySingleton(() => UIService());

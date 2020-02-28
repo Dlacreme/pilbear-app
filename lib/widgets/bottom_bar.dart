@@ -26,6 +26,7 @@ class _BottomBarState extends State<BottomBar> {
         _show = uiService.showBottomBar.value;
       });
     });
+    super.initState();
   }
 
   void _onItemTapped(int index) {
