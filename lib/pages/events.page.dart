@@ -1,8 +1,7 @@
 
 import 'package:flutter/widgets.dart';
-import 'package:pilbear_app/app.widget.dart';
 
-class EventsPage extends PageWidget {
+class EventsPage extends StatefulWidget {
   @override
   _EventsPage createState() => _EventsPage();
 }

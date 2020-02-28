@@ -1,8 +1,7 @@
 
 import 'package:flutter/widgets.dart';
-import 'package:pilbear_app/app.widget.dart';
 
-class ProfilePage extends PageWidget {
+class ProfilePage extends StatefulWidget {
   @override
   _ProfilePage createState() => _ProfilePage();
 }

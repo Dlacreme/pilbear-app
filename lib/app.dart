@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:pilbear_app/app.widget.dart';
 import 'package:pilbear_app/main.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'intl.dart';
@@ -16,8 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  final navigatorKey = GlobalKey<NavigatorState>();
+  var _navService = getIt<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +33,9 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: pilbearThemeData,
-      navigatorKey: getIt<NavigationService>().navigationKey,
-      // navigatorKey: this.navigatorKey,
+      navigatorKey: _navService.navigationKey,
       onGenerateRoute: Router.generateRoute,
-      initialRoute: searchPage,
+      initialRoute: loadingPage,
       builder: (context, widget) {
         return Scaffold(
           extendBody: true,
@@ -46,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             child: widget,
             padding: EdgeInsets.only(top: isAndroid ? 30 : 10),
           ),
-          bottomNavigationBar: (widget as AppWidget).showBottomBar == true ? BottomBar(this.navigatorKey) : Text('ho'),
+          bottomNavigationBar: BottomBar()
         );
       },
     );
