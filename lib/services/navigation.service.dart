@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+const String loadingPage = '/';
+const String loginPage = '/login';
+const String searchPage = '/search';
+const String profilePage = '/profile';
+const String profileEditPage = '/editProfile';
+const String eventsPage = '/events';
+const String registerPage = '/register';
+
 class NavigationService {
   GlobalKey<NavigatorState> _navigationKey = GlobalKey<NavigatorState>();
 

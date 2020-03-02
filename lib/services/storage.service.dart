@@ -1,8 +1,6 @@
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
-
   final _tokenKey = 'pilbear_auth_token';
 
   Future<bool> save() async {
@@ -21,5 +19,4 @@ class StorageService {
   Future<SharedPreferences> getSharedPreferences() async {
     return SharedPreferences.getInstance();
   }
-
 }
