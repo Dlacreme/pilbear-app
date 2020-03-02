@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pilbear_app/intl.dart';
@@ -59,10 +60,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       child:
                           Image(image: AssetImage('assets/pilbear-logo.png')),
                     ),
-                    Text(translate(context, 'USER.CREATE_ACCOUNT'),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
+                    Expanded(
+                        child: AutoSizeText(
+                            translate(context, 'USER.CREATE_ACCOUNT'),
+                            textAlign: TextAlign.center,
+                            minFontSize: 18,
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 28))),
                   ]),
                   Container(margin: EdgeInsets.only(bottom: 30)),
                   TextFormField(
