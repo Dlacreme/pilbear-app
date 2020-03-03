@@ -45,7 +45,7 @@ class _RegisterScreen extends State<RegisterScreen> {
     return Center(
         child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.only(left: 30, right: 30, bottom: 80),
+            padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
             child: Form(
               key: _loginFormKey,
               child: Column(

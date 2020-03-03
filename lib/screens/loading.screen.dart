@@ -37,7 +37,6 @@ class _LoadingScreen extends State<LoadingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 50),
               child: Image(image: AssetImage('assets/pilbear-logo-full.png')),
             ),
             BigSpinnerWidget(),

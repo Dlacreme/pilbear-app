@@ -70,7 +70,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
         )),
         Container(
             height: 80,
-            margin: EdgeInsets.only(bottom: 60, left: 20, right: 20),
+            margin: EdgeInsets.only(bottom: 5, left: 20, right: 20),
             child: _loading
                 ? Container(
                     child: SpinnerWidget(),

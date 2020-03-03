@@ -56,7 +56,7 @@ class _ProfilePage extends State<ProfilePage> {
         child: _user == null
             ? SpinnerWidget()
             : Container(
-                padding: EdgeInsets.only(bottom: 100),
+                padding: EdgeInsets.only(bottom: 20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[

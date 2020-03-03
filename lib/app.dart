@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: loadingPage,
       builder: (context, widget) {
         return Scaffold(
-            extendBody: true,
+            extendBody: false,
             body: Container(
               child: widget,
               padding: EdgeInsets.only(top: isAndroid ? 22 : 10),
