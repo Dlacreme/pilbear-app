@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:get_it/get_it.dart';
 import 'package:pilbear_app/app.dart';
+import 'package:pilbear_app/services/category.service.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'package:pilbear_app/services/validator.service.dart';
 import 'package:pilbear_app/services/auth.service.dart';
@@ -17,6 +18,7 @@ void main() {
   getIt.registerLazySingleton(() => AuthService());
   getIt.registerLazySingleton(() => StorageService());
   getIt.registerLazySingleton(() => UIService());
+  getIt.registerLazySingleton(() => CategoryService());
   runApp(MyApp());
 }
 

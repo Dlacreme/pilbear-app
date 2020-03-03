@@ -53,7 +53,8 @@ class PilbearApi {
 
   /// CATEGORIES
   Future<ApiResult> categories() async {
-    return this.get('/categories');
+    var res = await this.get('/categories');
+    return res;
   }
 
   /// CATEGORIES

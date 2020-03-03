@@ -32,7 +32,9 @@ dependencies:
   loading: 1.0.2
   sentry: '>=3.0.0 <4.0.0'
   get_it: 4.0.0
-  auto_size_text: ^2.1.0
+  auto_size_text: 2.1.0
+  image_picker: 0.6.3
+  dotted_border: 1.0.5
 
 dev_dependencies:
   flutter_test:

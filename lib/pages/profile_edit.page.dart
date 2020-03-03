@@ -1,10 +1,17 @@
+import 'dart:io';
+import 'dart:ui';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pilbear_app/intl.dart';
 import 'package:pilbear_app/main.dart';
+import 'package:pilbear_app/models/category.model.dart';
+import 'package:pilbear_app/models/user.model.dart';
 import 'package:pilbear_app/services/api.dart';
+import 'package:pilbear_app/services/auth.service.dart';
+import 'package:pilbear_app/services/category.service.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'package:pilbear_app/theme.dart';
-import 'package:pilbear_app/widgets/page_top_bar.dart';
 import 'package:pilbear_app/widgets/spinner.widget.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -13,11 +20,15 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPage extends State<ProfileEditPage> {
+  static UserModel _user = getIt<AuthService>().currentUser;
+  List<CategoryModel> _categories = new List();
   int _currentStep = 1;
   bool _loading = false;
 
   final _profileEditForm = GlobalKey<FormState>();
-  TextEditingController _nicknameController = new TextEditingController();
+  File _image;
+  TextEditingController _nicknameController =
+      new TextEditingController(text: _user.nickname);
 
   void save() async {
     setState(() {
@@ -25,6 +36,14 @@ class _ProfileEditPage extends State<ProfileEditPage> {
     });
     await getIt<PilbearApi>().fake();
     getIt<NavigationService>().navigateTo(profilePage);
+  }
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
@@ -152,11 +171,69 @@ class _ProfileEditPage extends State<ProfileEditPage> {
   }
 
   Widget stepTwo(BuildContext context) {
-    return Container(child: _stepTitle(context, 'USER.STEPS.PICTURE'));
+    return Container(
+        alignment: Alignment.center,
+        child: Column(children: [
+          _stepTitle(context, 'USER.STEPS.PICTURE'),
+          Expanded(
+              child: Container(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                      onTap: getImage,
+                      child: DottedBorder(
+                          color: PilbearColors.borderColor,
+                          radius: Radius.circular(5),
+                          strokeWidth: 2,
+                          padding: EdgeInsets.all(2),
+                          dashPattern: [6],
+                          child: Container(
+                            height: 300,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                image: DecorationImage(
+                                    image: isNullEmptyOrFalse(_user.picture_url)
+                                        ? NetworkImage(
+                                            'https://raw.githubusercontent.com/Dlacreme/pilbear-assets/master/user.png?token=ABUWQHLB7KFZDOUQ5IG3L3K6MOUNI')
+                                        : NetworkImage(_user.picture_url))),
+                            child: Container(),
+                            // child: Center(
+                            //     child: Text(
+                            //         translate(context, 'USER.PICK_PICTURE')
+                            //             .toUpperCase(),
+                            //         style: TextStyle(
+                            //             color: PilbearColors.borderColor,
+                            //             fontWeight: FontWeight.bold,
+                            //             fontSize: 18))),
+                          )))))
+        ]));
   }
 
   Widget stepThree(BuildContext context) {
-    return Container(child: _stepTitle(context, 'USER.STEPS.FAVORITES'));
+    if (_categories.length == 0) {
+      _loadCategories();
+    }
+    return Container(
+        child: Column(children: <Widget>[
+      _stepTitle(context, 'USER.STEPS.FAVORITES'),
+      Container(
+          alignment: Alignment.center,
+          child: _categories.length == 0
+              ? SpinnerWidget()
+              : Flex(direction: Axis.vertical, children: [
+                  Flexible(
+                      child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, i) {
+                      return ListTile(title: Text(_categories[i].label));
+                    },
+                  ))
+                ]))
+      // children: _buildCategoryList(),
+      // ))
+    ]));
   }
 
   Widget stepFour(BuildContext context) {
@@ -177,5 +254,21 @@ class _ProfileEditPage extends State<ProfileEditPage> {
               fontWeight: FontWeight.bold,
               color: PilbearColors.accentColor),
         ));
+  }
+
+  void _loadCategories() async {
+    var cats = await getIt<CategoryService>().list();
+    setState(() {
+      _categories = cats;
+    });
+  }
+
+  Iterable<Widget> _buildCategoryList() {
+    List<Widget> items = List();
+    _categories.forEach((c) {
+      items.add(ListTile(title: Text(c.label)));
+    });
+    print(items);
+    return items;
   }
 }

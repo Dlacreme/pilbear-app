@@ -23,7 +23,8 @@
   "USER.NAME": "Name",
   "USER.STEPS.NAME": "First thing first, what is your name?",
   "USER.STEPS.PICTURE": "Always better to see who you will play with!",
-  "USER.STEPS.FAVORITES": "Pick your favorites!",
+  "USER.STEPS.FAVORITES": "Which sports are you mostly looking for?",
   "USER.STEPS.BIRTHDATE": "What is your birthdate?",
-  "USER.STEPS.GENDER": "And finally..."
+  "USER.STEPS.GENDER": "And finally...",
+  "USER.PICK_PICTURE": "Pick a picture"
 }
