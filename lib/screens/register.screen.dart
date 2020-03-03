@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pilbear_app/intl.dart';
@@ -10,12 +11,12 @@ import 'package:pilbear_app/theme.dart';
 import 'package:pilbear_app/widget_factories/snack_bar.factory.dart';
 import 'package:pilbear_app/widgets/spinner.widget.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreen createState() => _LoginScreen();
+  _RegisterScreen createState() => _RegisterScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _RegisterScreen extends State<RegisterScreen> {
   final _loginFormKey = GlobalKey<FormState>();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
@@ -27,8 +28,8 @@ class _LoginScreen extends State<LoginScreen> {
     setState(() {
       _loading = true;
     });
-    var user = await getIt<PilbearApi>()
-        .login(_emailController.text.trim(), _passwordController.text.trim());
+    var user = await getIt<PilbearApi>().register(
+        _emailController.text.trim(), _passwordController.text.trim());
     setState(() {
       _loading = false;
     });
@@ -59,10 +60,14 @@ class _LoginScreen extends State<LoginScreen> {
                       child:
                           Image(image: AssetImage('assets/pilbear-logo.png')),
                     ),
-                    Text(translate(context, 'USER.LOGIN'),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
+                    Expanded(
+                        child: AutoSizeText(
+                            translate(context, 'USER.CREATE_ACCOUNT'),
+                            textAlign: TextAlign.center,
+                            minFontSize: 18,
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 28))),
                   ]),
                   Container(margin: EdgeInsets.only(bottom: 30)),
                   TextFormField(
@@ -101,11 +106,10 @@ class _LoginScreen extends State<LoginScreen> {
                             children: <Widget>[
                               FlatButton(
                                 onPressed: () {
-                                  getIt<NavigationService>()
-                                      .navigateTo(registerPage);
+                                  getIt<NavigationService>().pop();
                                 },
                                 child: Text(
-                                    translate(context, 'USER.CREATE_ACCOUNT'),
+                                    translate(context, 'USER.BACK_LOGIN'),
                                     style: TextStyle(
                                         color: PilbearColors.accentColor)),
                               ),

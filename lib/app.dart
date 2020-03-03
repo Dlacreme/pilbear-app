@@ -22,10 +22,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pilbear',
-      supportedLocales: [
-        const Locale('en'),
-        const Locale('fr')
-      ],
+      supportedLocales: [const Locale('en'), const Locale('fr')],
       localizationsDelegates: [
         Translate.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -38,13 +35,12 @@ class _MyAppState extends State<MyApp> {
       initialRoute: loadingPage,
       builder: (context, widget) {
         return Scaffold(
-          extendBody: true,
-          body: Container(
-            child: widget,
-            padding: EdgeInsets.only(top: isAndroid ? 30 : 10),
-          ),
-          bottomNavigationBar: BottomBar()
-        );
+            extendBody: false,
+            body: Container(
+              child: widget,
+              padding: EdgeInsets.only(top: isAndroid ? 22 : 10),
+            ),
+            bottomNavigationBar: BottomBar());
       },
     );
   }
