@@ -5,7 +5,7 @@ import 'package:pilbear_app/services/navigation.service.dart';
 import 'intl.dart';
 import 'router.dart';
 import 'theme.dart';
-import 'widgets/bottom_bar.dart';
+import 'widgets/bottom_bar.widget.dart';
 import 'package:sentry/sentry.dart';
 
 class MyApp extends StatefulWidget {

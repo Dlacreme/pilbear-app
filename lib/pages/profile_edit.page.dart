@@ -12,6 +12,7 @@ import 'package:pilbear_app/services/auth.service.dart';
 import 'package:pilbear_app/services/category.service.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'package:pilbear_app/theme.dart';
+import 'package:pilbear_app/widget_factories/step_counter.factory.dart';
 import 'package:pilbear_app/widgets/spinner.widget.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
     setState(() {
       _loading = true;
     });
-    await getIt<PilbearApi>().fake();
+    await getIt<PilbearApi>().updateProfile(_user);
     getIt<NavigationService>().navigateTo(profilePage);
   }
 
@@ -42,7 +43,13 @@ class _ProfileEditPage extends State<ProfileEditPage> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = image;
+      _loading = true;
+      getIt<PilbearApi>().upload(image, 'user').then((picUrl) {
+        _user.picture_url = picUrl;
+        setState(() {
+          _loading = false;
+        });
+      });
     });
   }
 
@@ -107,6 +114,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
                               },
                             )
                           : Container(),
+                      stepCounter(5, _currentStep),
                       _currentStep < 5
                           ? RaisedButton(
                               color: PilbearColors.successColor,
@@ -124,6 +132,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
                               ]),
                               onPressed: () {
                                 setState(() {
+                                  _updateProfile();
                                   _currentStep += 1;
                                 });
                               },
@@ -171,6 +180,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
   }
 
   Widget stepTwo(BuildContext context) {
+    print(_user.picture_url);
     return Container(
         alignment: Alignment.center,
         child: Column(children: [
@@ -198,14 +208,6 @@ class _ProfileEditPage extends State<ProfileEditPage> {
                                             'https://raw.githubusercontent.com/Dlacreme/pilbear-assets/master/user.png?token=ABUWQHLB7KFZDOUQ5IG3L3K6MOUNI')
                                         : NetworkImage(_user.picture_url))),
                             child: Container(),
-                            // child: Center(
-                            //     child: Text(
-                            //         translate(context, 'USER.PICK_PICTURE')
-                            //             .toUpperCase(),
-                            //         style: TextStyle(
-                            //             color: PilbearColors.borderColor,
-                            //             fontWeight: FontWeight.bold,
-                            //             fontSize: 18))),
                           )))))
         ]));
   }
@@ -214,6 +216,12 @@ class _ProfileEditPage extends State<ProfileEditPage> {
     if (_categories.length == 0) {
       _loadCategories();
     }
+    if (_categories.length == 0) {
+      return Container(child: SpinnerWidget());
+    }
+
+    return ListView(children: _buildCategoryList());
+
     return Container(
         child: Column(children: <Widget>[
       _stepTitle(context, 'USER.STEPS.FAVORITES'),
@@ -221,16 +229,9 @@ class _ProfileEditPage extends State<ProfileEditPage> {
           alignment: Alignment.center,
           child: _categories.length == 0
               ? SpinnerWidget()
-              : Flex(direction: Axis.vertical, children: [
-                  Flexible(
-                      child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, i) {
-                      return ListTile(title: Text(_categories[i].label));
-                    },
-                  ))
-                ]))
+              : Column(
+                  children: _buildCategoryList(),
+                ))
       // children: _buildCategoryList(),
       // ))
     ]));
@@ -270,5 +271,9 @@ class _ProfileEditPage extends State<ProfileEditPage> {
     });
     print(items);
     return items;
+  }
+
+  void _updateProfile() {
+    _user.nickname = _nicknameController.value.text;
   }
 }

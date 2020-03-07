@@ -28,7 +28,6 @@ class _ProfilePage extends State<ProfilePage> {
   _ProfilePage(this._userId);
 
   void _loadUser() async {
-    print('LOAD USER');
     if (_authService.currentUser != null &&
         _authService.currentUser.id == _userId) {
       setState(() {

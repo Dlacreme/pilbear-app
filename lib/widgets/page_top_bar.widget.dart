@@ -19,7 +19,6 @@ class _PageTopBarState extends State<PageTopBar> {
 
   @override
   Widget build(BuildContext context) {
-    print(_title);
     return Center(
         child: Container(
             color: PilbearColors.whiteColor,

@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:pilbear_app/main.dart';
 import 'dart:convert' as convert;
+
+import 'package:pilbear_app/models/user.model.dart';
 
 class ApiResult {
   dynamic body;
@@ -14,7 +19,7 @@ class PilbearApi {
 
   PilbearApi(this._token);
 
-  final url = 'https://pilbear-api.herokuapp.com';
+  final url = 'https://pilbear-cr.herokuapp.com';
 
   Future<void> fake() async {
     await Future.delayed(Duration(seconds: 2));
@@ -46,6 +51,37 @@ class PilbearApi {
     var res =
         await this.post('/register', {'email': email, 'password': password});
     return res;
+  }
+
+  Future<ApiResult> updateProfile(UserModel user) async {
+    var elem = {};
+    if (!isNullEmptyOrFalse(user.nickname)) {
+      elem['nickname'] = user.nickname;
+    }
+    if (!isNullEmptyOrFalse(user.picture_url)) {
+      elem['picture_url'] = user.picture_url;
+    }
+    if (!isNullEmptyOrFalse(user.birthdate)) {
+      elem['birthdate'] = user.birthdate;
+    }
+    if (!isNullEmptyOrFalse(user.gender)) {
+      elem['gender'] = user.gender;
+    }
+    // if (user.favorites != null) {
+    //   elem['favorites'] = user.favorites.map((f) {
+    //     return f.id;
+    //   });
+    // }
+    return _responseToApiResult(await this.put('/profile', elem));
+  }
+
+  Future<String> upload(File file, String type) async {
+    var req =
+        http.MultipartRequest('POST', Uri.parse("${this.url}/upload/$type"))
+          ..files.add(await http.MultipartFile.fromPath('image', file.path));
+    req.headers['Authorization'] = "Bearer ${this._token}";
+    var res = await req.send();
+    return convert.jsonDecode(await res.stream.bytesToString())['file_url'];
   }
 
   /// USERS
