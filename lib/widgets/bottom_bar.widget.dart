@@ -4,6 +4,7 @@ import 'package:pilbear_app/main.dart';
 import 'package:pilbear_app/services/navigation.service.dart';
 import 'package:pilbear_app/intl.dart';
 import 'package:pilbear_app/services/ui.service.dart';
+import 'package:pilbear_app/theme.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -47,6 +48,7 @@ class _BottomBarState extends State<BottomBar> {
     return Visibility(
         visible: _show,
         child: BottomNavigationBar(
+          backgroundColor: PilbearColors.whiteColor,
           items: [
             BottomNavigationBarItem(
                 title: Text(translate(context, 'BOTTOM_BAR.EVENTS')),

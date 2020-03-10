@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pilbear_app/main.dart';
 import 'package:pilbear_app/pages/profile.page.dart';
-import 'package:pilbear_app/pages/profile_edit.page.dart';
+import 'package:pilbear_app/pages/profile_edit/profile_edit.page.dart';
 import 'package:pilbear_app/screens/loading.screen.dart';
 import 'package:pilbear_app/screens/login.screen.dart';
 import 'package:pilbear_app/screens/register.screen.dart';

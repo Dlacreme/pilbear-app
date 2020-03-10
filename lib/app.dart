@@ -35,12 +35,15 @@ class _MyAppState extends State<MyApp> {
       initialRoute: loadingPage,
       builder: (context, widget) {
         return Scaffold(
-            extendBody: false,
-            body: Container(
+          extendBody: false,
+          bottomNavigationBar: BottomBar(),
+          body: Center(
+            child: Container(
               child: widget,
               padding: EdgeInsets.only(top: isAndroid ? 22 : 10),
             ),
-            bottomNavigationBar: BottomBar());
+          ),
+        );
       },
     );
   }
